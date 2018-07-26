@@ -65,7 +65,7 @@ http://jsfiddle.net/Anatol/T6kDR/
 //currently random, but in future will take winners off of data
 // .rotate() DEMO
 
-
+/*
 var end = 0;
 $(function() {
 
@@ -204,3 +204,94 @@ $.fn.rotate=function(options) {
 
   return $this;
 };
+*/
+
+
+
+
+
+
+
+
+
+//DAY 2 NEW TRIAL
+
+/*
+function SmoothRotate(o, d, t){
+    var obj = $(o);
+
+    $({deg: 0}).animate({deg: d}, {
+        duration: t,
+        step: function(now){
+            obj.css({
+                 transform: "rotate(" + now + "deg)"
+            });
+        }
+    });
+}
+*/
+
+//SmoothRotate function defined here
+$.fn.SmoothRotate = function(oldAngle, angle, duration, easing, complete) {
+  var args = $.speed(duration, easing, complete);
+  var step = args.step;
+  return this.each(function(i, e) {
+    args.complete = $.proxy(args.complete, e);
+    args.step = function(now) {
+      $.style(e, 'transform', 'rotate(' + now + 'deg)');
+      if (step) return step.apply(e, arguments);
+    };
+
+    $({deg: oldAngle}).animate({deg: angle}, args);
+  });
+};
+
+
+$(document).ready(function(){
+	$('.btn').click(function(){
+		$("#spin").addClass("swingimageup");
+		setTimeout(function(){
+			$("#spin").removeClass("swingimageup");
+			$("#spin").addClass("swingimage");
+		}, 200);
+
+
+		//Setup variables
+		var obj = $('#test');
+		var end = Math.random() * 360;
+		var final = 12 - Math.floor(end/30);
+
+		//map function
+		var time = (360 - end - 0) * (1300 - 500) / (360) + 500;
+
+		//Give final result before wheel is spun
+    	alert ('you got '+ final); 
+
+    	//Should find a way to optimise this, get more smooth transitions, this is not smooth and requires more code than should be neccessary
+		obj.SmoothRotate(0, 1700, 800, 'linear', function () {});
+		setTimeout(function(){
+			obj.SmoothRotate(1700, 2600, 600, 'linear', function () {});
+			setTimeout(function(){
+				obj.SmoothRotate(2600, 3050, 400, 'linear', function () {});
+				setTimeout(function(){
+					obj.SmoothRotate(3050, 3300, 400, 'linear', function () {});
+					setTimeout(function(){
+						obj.SmoothRotate(3300, 3600, 1000, 'linear', function () {});
+						setTimeout(function(){
+							obj.SmoothRotate(3600, end + 3600, time, 'linear', function () {});
+							setTimeout(function(){
+								$("#spin").removeClass("swingimage");
+								$("#spin").addClass("swingimagedown");
+								setTimeout(function(){
+									$("#spin").removeClass("swingimagedown");
+								}, 200);
+								$("#test").css('z-index', '-1');
+								$("#spin").css('z-index', '1');
+							}, time);
+						}, 1000);
+					}, 400);
+				}, 400);
+			}, 600);
+		}, 800);
+	});
+});
