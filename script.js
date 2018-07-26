@@ -338,34 +338,33 @@ var isSpinning = false;
 
 var spinner = function(t, oa, na, iter, e, t2, final){
 	$('#test').SmoothRotate(oa, na, t, 'linear', function () {});
-	t+=500;
+	t+=300;
 	oa = na;
 	na += 360;
 	if (iter > 0){
 		iter--;
 		setTimeout(function(){
 			spinner(t, oa, na, iter, e, t2, final);
-		}, t-500);
+		}, t-300);
 	} else {
+		setTimeout(function(){
+			$('#test').SmoothRotate(oa, oa+e, t2, 'linear', function () {});
 			setTimeout(function(){
-				$('#test').SmoothRotate(oa, oa+e, t2, 'linear', function () {});
+				$("#spin").removeClass("swingimage");
+				$("#spin").addClass("swingimagedown");
 				setTimeout(function(){
-					$("#spin").removeClass("swingimage");
-					$("#spin").addClass("swingimagedown");
-					setTimeout(function(){
-						$("#spin").removeClass("swingimagedown");
-						//alert ('You landed a '+ final + '! Play again to win more!');
-						isSpinning = false;
-					}, 200);
-				}, t2);										 
-			}, t-500);
+					$("#spin").removeClass("swingimagedown");
+					alert ('You landed a '+ final + '! Play again to win more!');
+					isSpinning = false;
+				}, 200);
+			}, t2);										 
+		}, t-300);
 	}
 }
 
 $(document).ready(function(){
 	$('.btn').click(function(){
 		if (isSpinning) {
-
 		} else {
 			isSpinning = true;
 			$("#spin").addClass("swingimageup");
@@ -373,8 +372,6 @@ $(document).ready(function(){
 				$("#spin").removeClass("swingimageup");
 				$("#spin").addClass("swingimage");
 			}, 200);
-
-
 		//Setup variables
 			var obj = $('#test');
 			var end = Math.random() * 360;
@@ -384,13 +381,11 @@ $(document).ready(function(){
 			var final = 12 - Math.floor(end/30);
 
 			//map function
-			var time = (360 - end) * (1300 - 500) / (360) + 500;
-
+			var time = end * (400) / (360) + 800;
 
 			//Give final result before wheel is spun
   		  	//alert ('you got '+ final); 
-  		  	spinner(500, 0, 360, 4, end, time, final);
-			
+  		  	spinner(200, 0, 360, 4, end, time, final);
 		}
 	});
 });
