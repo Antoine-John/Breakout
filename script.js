@@ -1,6 +1,3 @@
-var segments = 12;
-var angle = 2*Math.PI/12;
-var newAngle = 0;
 
 /*
 function draw(){
@@ -231,6 +228,26 @@ function SmoothRotate(o, d, t){
 }
 */
 
+
+/*
+Force Prizes, need to input an angle
+		   0-30:  12
+		  31-60:  11
+		  61-90:  10
+		 91-120:  9
+		121-150:  8
+		151-180:  7 
+		181-210:  6
+		211-240:  5
+		241-270:  4
+		271-300:  3
+		301-330:  2
+		331-360:  1
+
+*/
+
+
+
 //SmoothRotate function defined here
 $.fn.SmoothRotate = function(oldAngle, angle, duration, easing, complete) {
   var args = $.speed(duration, easing, complete);
@@ -245,53 +262,137 @@ $.fn.SmoothRotate = function(oldAngle, angle, duration, easing, complete) {
     $({deg: oldAngle}).animate({deg: angle}, args);
   });
 };
-
+/*
+var isSpinning = false;
 
 $(document).ready(function(){
 	$('.btn').click(function(){
-		$("#spin").addClass("swingimageup");
-		setTimeout(function(){
-			$("#spin").removeClass("swingimageup");
-			$("#spin").addClass("swingimage");
-		}, 200);
+		if (isSpinning) {
+
+		} else {
+			isSpinning = true;
+			$("#spin").addClass("swingimageup");
+			setTimeout(function(){
+				$("#spin").removeClass("swingimageup");
+				$("#spin").addClass("swingimage");
+			}, 200);
 
 
 		//Setup variables
-		var obj = $('#test');
-		var end = Math.random() * 360;
-		var final = 12 - Math.floor(end/30);
+			var obj = $('#test');
+			var end = Math.random() * 360;
+			if (end%30 == 0){
+    			end=end+1;
+   			}
 
-		//map function
-		var time = (360 - end - 0) * (1300 - 500) / (360) + 500;
+			var final = 12 - Math.floor(end/30);
 
-		//Give final result before wheel is spun
-    	alert ('you got '+ final); 
+			//map function
+			var time = (360 - end) * (1300 - 500) / (360) + 500;
 
-    	//Should find a way to optimise this, get more smooth transitions, this is not smooth and requires more code than should be neccessary
-		obj.SmoothRotate(0, 1700, 800, 'linear', function () {});
-		setTimeout(function(){
-			obj.SmoothRotate(1700, 2600, 600, 'linear', function () {});
+			//Give final result before wheel is spun
+  		  	//alert ('you got '+ final); 
+
+    		//Should find a way to optimise this, get more smooth transitions, this is not smooth and requires more code than should be neccessary
+			obj.SmoothRotate(0, 1700, 800, 'linear', function () {});
 			setTimeout(function(){
-				obj.SmoothRotate(2600, 3050, 400, 'linear', function () {});
+				obj.SmoothRotate(1700, 2600, 600, 'linear', function () {});
 				setTimeout(function(){
-					obj.SmoothRotate(3050, 3300, 400, 'linear', function () {});
+					obj.SmoothRotate(2600, 3050, 400, 'linear', function () {});
 					setTimeout(function(){
-						obj.SmoothRotate(3300, 3600, 1000, 'linear', function () {});
+						obj.SmoothRotate(3050, 3300, 400, 'linear', function () {});
 						setTimeout(function(){
-							obj.SmoothRotate(3600, end + 3600, time, 'linear', function () {});
+							obj.SmoothRotate(3300, 3600, 1000, 'linear', function () {});
 							setTimeout(function(){
-								$("#spin").removeClass("swingimage");
-								$("#spin").addClass("swingimagedown");
+								obj.SmoothRotate(3600, end + 3600, time, 'linear', function () {});
 								setTimeout(function(){
-									$("#spin").removeClass("swingimagedown");
-								}, 200);
-								$("#test").css('z-index', '-1');
-								$("#spin").css('z-index', '1');
-							}, time);
-						}, 1000);
+									$("#spin").removeClass("swingimage");
+									$("#spin").addClass("swingimagedown");
+									setTimeout(function(){
+										$("#spin").removeClass("swingimagedown");
+										isSpinning = false;
+										alert ('You landed a '+ final + '! Play again to win more!'); 
+									}, 200);
+								}, time);
+							}, 1000);
+						}, 400);
 					}, 400);
-				}, 400);
-			}, 600);
-		}, 800);
+				}, 600);
+			}, 800);
+		}
 	});
 });
+*/
+
+
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+
+var isSpinning = false;
+
+var spinner = function(t, oa, na, iter, e, t2, final){
+	$('#test').SmoothRotate(oa, na, t, 'linear', function () {});
+	t+=500;
+	oa = na;
+	na += 360;
+	if (iter > 0){
+		iter--;
+		setTimeout(function(){
+			spinner(t, oa, na, iter, e, t2, final);
+		}, t-500);
+	} else {
+			setTimeout(function(){
+				$('#test').SmoothRotate(oa, oa+e, t2, 'linear', function () {});
+				setTimeout(function(){
+					$("#spin").removeClass("swingimage");
+					$("#spin").addClass("swingimagedown");
+					setTimeout(function(){
+						$("#spin").removeClass("swingimagedown");
+						//alert ('You landed a '+ final + '! Play again to win more!');
+						isSpinning = false;
+					}, 200);
+				}, t2);										 
+			}, t-500);
+	}
+}
+
+$(document).ready(function(){
+	$('.btn').click(function(){
+		if (isSpinning) {
+
+		} else {
+			isSpinning = true;
+			$("#spin").addClass("swingimageup");
+			setTimeout(function(){
+				$("#spin").removeClass("swingimageup");
+				$("#spin").addClass("swingimage");
+			}, 200);
+
+
+		//Setup variables
+			var obj = $('#test');
+			var end = Math.random() * 360;
+			if (end%30 == 0){
+    			end=end+1;
+   			}
+			var final = 12 - Math.floor(end/30);
+
+			//map function
+			var time = (360 - end) * (1300 - 500) / (360) + 500;
+
+
+			//Give final result before wheel is spun
+  		  	//alert ('you got '+ final); 
+  		  	spinner(500, 0, 360, 4, end, time, final);
+			
+		}
+	});
+});
+
+
