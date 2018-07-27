@@ -243,25 +243,6 @@ Force Prizes, need to input an angle
 		271-300:  3
 		301-330:  2
 		331-360:  1
-
-*/
-
-
-
-//SmoothRotate function defined here
-$.fn.SmoothRotate = function(oldAngle, angle, duration, easing, complete) {
-  var args = $.speed(duration, easing, complete);
-  var step = args.step;
-  return this.each(function(i, e) {
-    args.complete = $.proxy(args.complete, e);
-    args.step = function(now) {
-      $.style(e, 'transform', 'rotate(' + now + 'deg)');
-      if (step) return step.apply(e, arguments);
-    };
-
-    $({deg: oldAngle}).animate({deg: angle}, args);
-  });
-};
 /*
 var isSpinning = false;
 
@@ -325,26 +306,38 @@ $(document).ready(function(){
 */
 
 
-function sleep(milliseconds) {
-  var start = new Date().getTime();
-  for (var i = 0; i < 1e7; i++) {
-    if ((new Date().getTime() - start) > milliseconds){
-      break;
-    }
-  }
-}
+//SmoothRotate function defined here
+$.fn.SmoothRotate = function(oldAngle, angle, duration, easing, complete) {
+  var args = $.speed(duration, easing, complete);
+  var step = args.step;
+  return this.each(function(i, e) {
+    args.complete = $.proxy(args.complete, e);
+    args.step = function(now) {
+      $.style(e, 'transform', 'rotate(' + now + 'deg)');
+      if (step) return step.apply(e, arguments);
+    };
+
+    $({deg: oldAngle}).animate({deg: angle}, args);
+  });
+};
 
 var isSpinning = false;
 var timeIncrement = 50;
 var angleIncrement = 120;
 var iterations = 5;
 
+//t - time, oa - old angle, na - new angle, iter - number of iterations, e - end angle, t2 - end time, final - final number attained - not neccessary)
 var spinner = function(t, oa, na, iter, e, t2, final){
+	//Turn the wheel
 	$('#test').SmoothRotate(oa, na, t, 'linear', function () {});
+	//Slow down the wheel at each angleIncrement
 	var tincrease = (iterations-iter)*timeIncrement;
 	t += tincrease; //Increase the time taken for one angleIncrement, would it be better to keep time constant but reduce angle? - Tested, multiple issues experienced, not desireable.
+	//Update the new/old angle
 	oa = na;
 	na += angleIncrement;
+
+	//Check if we should 
 	if (iter > 0){
 		iter--;
 		setTimeout(function(){

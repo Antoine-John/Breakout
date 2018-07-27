@@ -8,7 +8,7 @@ body{
 	margin:auto;
 	width:100%;
 	height: 100px;
-	bottom:50px;
+	bottom:10px;
 }
 
 .btn {
@@ -25,7 +25,7 @@ body{
  	display:block;
  	margin-left: auto;
 	margin-right: auto;
-	margin-top:530px;
+	margin-top: 500px;
 	font-family: 'Press Start 2P', cursive;
 }
 
@@ -45,6 +45,14 @@ body{
 }
 
 img{
+	position:relative;
+	margin-bottom:30px;
+	display: block;
+	margin-right: auto; 
+	margin-left: auto;
+}
+
+canvas{
 	position:relative;
 	margin-bottom:30px;
 	display: block;

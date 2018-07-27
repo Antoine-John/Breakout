@@ -22,19 +22,23 @@ Went for option 1, used an animated loop for the pointer. Still need to work on 
 	<body>
 
 		<!--Spin and win machine here-
-		<div class="wheel_holder">
-			<canvas id="wheel_of_fortune" width="600" height="600"></canvas>
-		</div>-->
 		<div id="container" style="width:700px; height:800px; margin: auto">
 			<div style="width: 100%;">
 				<img id="test" style="height:500px; width:500px; padding-top: 40px; padding-bottom: 40px; z-index: 1" src="./wheel.png">
 				<img id="spin" style="height:50px; width:50px; margin-top: -590px; z-index: 2" src="./spin_point.png">
 			</div>
+		-->
+		<div id="container" style="width:700px; height:800px; margin: auto">
+			<div style="width: 100%;">
+				<canvas style="height:500px; width:500px; padding-top: 40px; padding-bottom: 40px; z-index: 1"id="test" width="3000" height="3000"></canvas>
+				<img id="spin" style="height:50px; width:50px; margin-top: -590px; z-index: 2" src="./spin_point.png">
+			</div>
 
-			<!--Button-->
 			<div class="btn_holder">
 		 		<button class="btn">SPIN!</button>
 			</div>
 		</div>
+
 	</body>
+	<script type="text/javascript" src="./ScriptTest.js"></script>
 </html>
