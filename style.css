@@ -80,29 +80,29 @@ img{
 }
 
 .swingimageup{
-	-webkit-transform-origin: 50% 0;
-	transform-origin: 50% 0;
+	-webkit-transform-origin: 50% 35%;
+	transform-origin: 50% 35%;
 	-webkit-animation: swingup 6s ease-in-out forwards 1;
 	animation: swingup 0.2s linear forwards 1;
 }
 
 .swingimagedown{
-	-webkit-transform-origin: 50% 0;
-	transform-origin: 50% 0;
+	-webkit-transform-origin: 50% 35%;
+	transform-origin: 50% 35%;
 	-webkit-animation: swingdown 6s ease-in-out forwards 1;
 	animation: swingdown 0.2s linear forwards 1;
 }
 
 .swingimage{
-	-webkit-transform-origin: 50% 0;
-	transform-origin: 50% 0;
+	-webkit-transform-origin: 50% 35%;
+	transform-origin: 50% 35%;
 	-webkit-animation: swinging 6s ease-in-out forwards 1;
 	animation: swinging 0.2s linear forwards 200;
 }
 
 .lowswingimage{
-	-webkit-transform-origin: 50% 0;
-	transform-origin: 50% 0;
+	-webkit-transform-origin: 50% 35%;
+	transform-origin: 50% 35%;
 	-webkit-animation: lowswinging 6s ease-in-out forwards 1;
 	animation: lowswinging 0.5s linear forwards 200;
 }

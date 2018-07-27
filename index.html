@@ -2,10 +2,12 @@
 Spin and win game, not truly random, wins are based upon tokens. 
 Tokens earned by costumers who use the Best Petrol card 
 Tokens generated at the end of the month - More of a lucky draw.
-Original version had a gif of a spinning wheel, is it possible to create a spin and win wheel that actually soins and is not a preset animation?
+Original version had a gif of a spinning wheel, is it possible to create a spin and win wheel that actually spins and is not a preset animation?
 How to go about the spinning wheel:
 	1. Make an image of a spin and win wheel and have that rotated by js
 	2. Draw a wheel using js/html/css and have it spun using css/js
+
+Went for option 1, used an animated loop for the pointer. Still need to work on the slowing down animation, still looks sketchy
 -->
 <!DOCTYPE html>
 <html>
@@ -26,7 +28,7 @@ How to go about the spinning wheel:
 		<div id="container" style="width:700px; height:800px; margin: auto">
 			<div style="width: 100%;">
 				<img id="test" style="height:500px; width:500px; padding-top: 40px; padding-bottom: 40px; z-index: 1" src="./wheel.png">
-				<img id="spin" style="height:50px; width:50px; margin-top: -580px; z-index: 2" src="./spin_point.png">
+				<img id="spin" style="height:50px; width:50px; margin-top: -590px; z-index: 2" src="./spin_point.png">
 			</div>
 
 			<!--Button-->

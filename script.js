@@ -385,14 +385,16 @@ $(document).ready(function(){
 
 			//Setup variables
 			var obj = $('#test');
+
+			//In final version can pull information from file to check if token is winning case, and then force outcome
 			var end = Math.random() * 360;
 			if (end%30 == 0){
     			end=end+1;
    			}
-			var final = 12 - Math.floor(end/30);
 
+			var final = 12 - Math.floor(end/30);
 			//map function
-			var time = (360-end) * (1500) / (360) + 2500;
+			var time = (360-end) * (1200) / (360) + 2500;
 
 			//Give final result before wheel is spun
   		  	//alert ('you got '+ final); 
