@@ -308,11 +308,12 @@ $(document).ready(function(){
 var canvas = document.getElementById("test");
 var ctx = canvas.getContext("2d");
 var lastend = Math.PI/2*3;
-var segmentNo = 50; // If you add more data values make sure you add more colors
+var segmentNo = 20;//prompt("How many segments in this wheel?"); //Change just this to add more segments
+var prize = ["Try Again", "Try Again", "$5", "Try Again", "$10", "Try Again", "$10", "Try Again", "$5", "Try Again", "$5", "Try Again", "Try Again", "$5", "Try Again", "$5", "$1000", "Try Again", "Try Again", "Try Again"]; //- More segments, more prizes needed
 
 //Draw the spinning wheel:
 for (var i = 1; i < segmentNo+1; i++) {
-  	ctx.fillStyle = 'rgb(' + Math.floor(255/segmentNo*i) + ',' + Math.floor(255/segmentNo*(segmentNo-i)) + ',0)';
+  	ctx.fillStyle = 'rgb(' + Math.floor(255/segmentNo*i) + ',' + Math.floor(255/segmentNo*(segmentNo-i)) + ',' + Math.floor(Math.random()*255) + ')';
   	ctx.beginPath();
   	ctx.moveTo(canvas.width / 2, canvas.height / 2);
   	// Arc Parameters: x, y, radius, startingAngle (radians), endingAngle (radians), antiClockwise (boolean)
@@ -330,10 +331,10 @@ for (var i = 1; i < segmentNo+1; i++) {
 	ctx.translate( canvas.width / 2, canvas.height / 2 );
 	var rotateBy = lastend - (Math.PI/segmentNo);
 	ctx.rotate(rotateBy);
-	ctx.font = "50px serif";
+	ctx.font = "100px calibri";
 	ctx.fillStyle = 'white'; // green
 	ctx.textAlign = "start";
-	ctx.fillText( "                          		                                                   Your Number Is " + i, 0, 0);
+	ctx.fillText( "                                        " + prize[i-1], 0, 0);
 	ctx.restore();
 }
 
@@ -387,7 +388,7 @@ var spinner = function(t, oa, na, iter, e, t2, final){
 				setTimeout(function(){
 					//Reset the pointer
 					$("#spin").removeClass("swingimagedown");
-					alert ('You landed a '+ final + '! Play again to win more!');
+					alert ('You landed with '+ prize[final-1] + '! Play again to win more!');
 					isSpinning = false;
 				}, 200);
 			}, t2);										 
