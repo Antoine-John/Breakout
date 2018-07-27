@@ -335,30 +335,36 @@ function sleep(milliseconds) {
 }
 
 var isSpinning = false;
+var timeIncrement = 50;
+var angleIncrement = 120;
+var iterations = 5;
 
 var spinner = function(t, oa, na, iter, e, t2, final){
 	$('#test').SmoothRotate(oa, na, t, 'linear', function () {});
-	t+=300;
+	var tincrease = (iterations-iter)*timeIncrement;
+	t += tincrease; //Increase the time taken for one angleIncrement, would it be better to keep time constant but reduce angle? - Tested, multiple issues experienced, not desireable.
 	oa = na;
-	na += 360;
+	na += angleIncrement;
 	if (iter > 0){
 		iter--;
 		setTimeout(function(){
 			spinner(t, oa, na, iter, e, t2, final);
-		}, t-300);
+		}, t-tincrease);
 	} else {
 		setTimeout(function(){
-			$('#test').SmoothRotate(oa, oa+e, t2, 'linear', function () {});
+			$('#test').SmoothRotate(oa, oa+e, t2, 'easeOutSine', function () {});
 			setTimeout(function(){
 				$("#spin").removeClass("swingimage");
+				//Swing the pointer down
 				$("#spin").addClass("swingimagedown");
 				setTimeout(function(){
+					//Reset the pointer
 					$("#spin").removeClass("swingimagedown");
 					alert ('You landed a '+ final + '! Play again to win more!');
 					isSpinning = false;
 				}, 200);
 			}, t2);										 
-		}, t-300);
+		}, t-tincrease);
 	}
 }
 
@@ -367,12 +373,15 @@ $(document).ready(function(){
 		if (isSpinning) {
 		} else {
 			isSpinning = true;
+			//Swing the pointer up
 			$("#spin").addClass("swingimageup");
 			setTimeout(function(){
 				$("#spin").removeClass("swingimageup");
+				//Moving pointer animation
 				$("#spin").addClass("swingimage");
 			}, 200);
-		//Setup variables
+
+			//Setup variables
 			var obj = $('#test');
 			var end = Math.random() * 360;
 			if (end%30 == 0){
@@ -381,13 +390,16 @@ $(document).ready(function(){
 			var final = 12 - Math.floor(end/30);
 
 			//map function
-			var time = end * (400) / (360) + 800;
+			var time = (360-end) * (1500) / (360) + 2500;
 
 			//Give final result before wheel is spun
   		  	//alert ('you got '+ final); 
-  		  	spinner(200, 0, 360, 4, end, time, final);
+  		  	$('#test').SmoothRotate(0, 720, 500, 'linear', function () {});
+  		  	setTimeout(function(){spinner(50, 720, 840, iterations, end, time, final);}, 500);
 		}
 	});
 });
+
+/*Have list, array of commands, speeds to accurately control wheel*/
 
 
