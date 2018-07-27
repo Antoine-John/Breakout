@@ -305,6 +305,37 @@ $(document).ready(function(){
 });
 */
 
+var canvas = document.getElementById("test");
+var ctx = canvas.getContext("2d");
+var lastend = Math.PI/2*3;
+var segmentNo = 50; // If you add more data values make sure you add more colors
+
+//Draw the spinning wheel:
+for (var i = 1; i < segmentNo+1; i++) {
+  	ctx.fillStyle = 'rgb(' + Math.floor(255/segmentNo*i) + ',' + Math.floor(255/segmentNo*(segmentNo-i)) + ',0)';
+  	ctx.beginPath();
+  	ctx.moveTo(canvas.width / 2, canvas.height / 2);
+  	// Arc Parameters: x, y, radius, startingAngle (radians), endingAngle (radians), antiClockwise (boolean)
+  	var x = canvas.width / 2;
+  	var y = canvas.height / 2
+  	var segmentAngle = Math.PI * 2 / segmentNo;
+  	ctx.arc(x, y, y, lastend, lastend + segmentAngle, false);
+  	ctx.lineTo(canvas.width / 2, canvas.height / 2);
+  	ctx.lineWidth = 5;
+  	ctx.stroke();
+  	ctx.fill();
+  	lastend += Math.PI * 2 / segmentNo;
+
+  	ctx.save();
+	ctx.translate( canvas.width / 2, canvas.height / 2 );
+	var rotateBy = lastend - (Math.PI/segmentNo);
+	ctx.rotate(rotateBy);
+	ctx.font = "50px serif";
+	ctx.fillStyle = 'white'; // green
+	ctx.textAlign = "start";
+	ctx.fillText( "                          		                                                   Your Number Is " + i, 0, 0);
+	ctx.restore();
+}
 
 //SmoothRotate function defined here
 $.fn.SmoothRotate = function(oldAngle, angle, duration, easing, complete) {
@@ -325,6 +356,7 @@ var isSpinning = false;
 var timeIncrement = 50;
 var angleIncrement = 120;
 var iterations = 5;
+var error = 13;
 
 //t - time, oa - old angle, na - new angle, iter - number of iterations, e - end angle, t2 - end time, final - final number attained - not neccessary)
 var spinner = function(t, oa, na, iter, e, t2, final){
@@ -381,11 +413,11 @@ $(document).ready(function(){
 
 			//In final version can pull information from file to check if token is winning case, and then force outcome
 			var end = Math.random() * 360;
-			if (end%30 == 0){
+			if (end%(Math.PI*2/segmentNo) == 0){
     			end=end+1;
    			}
 
-			var final = 12 - Math.floor(end/30);
+			var final = segmentNo - Math.floor(end/(360/segmentNo));
 			//map function
 			var time = (360-end) * (1200) / (360) + 2500;
 
