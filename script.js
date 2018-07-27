@@ -352,9 +352,11 @@ var spinner = function(t, oa, na, iter, e, t2, final){
 		}, t-tincrease);
 	} else {
 		setTimeout(function(){
+			$("#spin").removeClass("swingimage");
+			$("#spin").addClass("lowswingimage");
 			$('#test').SmoothRotate(oa, oa+e, t2, 'easeOutSine', function () {});
 			setTimeout(function(){
-				$("#spin").removeClass("swingimage");
+				$("#spin").removeClass("lowswingimage");
 				//Swing the pointer down
 				$("#spin").addClass("swingimagedown");
 				setTimeout(function(){
