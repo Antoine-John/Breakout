@@ -309,14 +309,42 @@ var canvas = document.getElementById("test");
 var ctx = canvas.getContext("2d");
 var lastend = Math.PI/2*3;
 var segmentNo = 20;//prompt("How many segments in this wheel?"); //Change just this to add more segments
-var prize = ["Try Again", "Try Again", "$5", "Try Again", "$10", "Try Again", "$10", "Try Again", "$5", "Try Again", "$5", "Try Again", "Try Again", "$5", "Try Again", "$5", "$1000", "Try Again", "Try Again", "Try Again"]; //- More segments, more prizes needed
-var color = ['blue', 'green', 'black', 'yellow', 'purple', 'red', 'orange'];
-var txtColor = ['white', 'white', 'white', 'black', 'white', 'white', 'white'];
+var prize = [
+	["Try Again", "#ID1"],
+	["Try Again", "#ID2"],
+	["$5", "#ID3"],
+	["Try Again", "#ID4"],
+	["$10", "#ID5"],
+	["Try Again", "#ID6"],
+	["$10", "#ID7"],
+	["Try Again", "#ID8"],
+	["$5", "#ID9"],
+	["Try Again", "#ID10"],
+	["$5", "#ID11"],
+	["Try Again", "#ID12"],
+	["Try Again", "#ID13"],
+	["$5", "#ID14"],
+	["Try Again", "#ID15"],
+	["Try Again", "#ID16"],
+	["$5", "#ID17"],
+	["Try Again", "#ID18"],
+	["Try Again", "#ID19"],
+	["$1000", "#ID20"]
+	]; //- More segments, more prizes needed
+var color = [
+	['blue', 'white'],
+	['green', 'white'],
+	['black', 'white'],
+	['yellow','black'],
+	['purple', 'white'],
+	['red', 'white'],
+	['orange', 'white']
+];
 
 //Draw the spinning wheel:
 for (var i = 1; i < segmentNo+1; i++) {
   	//ctx.fillStyle = 'rgb(' + Math.floor(255/segmentNo*i) + ',' + Math.floor(255/segmentNo*(segmentNo-i)) + ',' + Math.floor(Math.random()*255) + ')';
-  	ctx.fillStyle = color[i%7];
+  	ctx.fillStyle = color[i%7][0];
   	ctx.beginPath();
   	ctx.moveTo(canvas.width / 2, canvas.height / 2);
   	// Arc Parameters: x, y, radius, startingAngle (radians), endingAngle (radians), antiClockwise (boolean)
@@ -337,9 +365,9 @@ for (var i = 1; i < segmentNo+1; i++) {
 	var offset = 0.045;
 	ctx.rotate(rotateBy + offset);
 	ctx.font = "60px PressStart2P";
-	ctx.fillStyle = txtColor[i%7];
+	ctx.fillStyle = color[i%7][1];
 	ctx.textAlign = "start";
-	ctx.fillText("												" + prize[i-1], 0, 0);
+	ctx.fillText("												" + prize[i-1][0], 0, 0);
 	ctx.restore();
 }
 
@@ -361,15 +389,14 @@ $.fn.SmoothRotate = function(oldAngle, angle, duration, easing, complete) {
 //From the prize type, calculate the angle required for it to stop
 var reward = function(jackpot){
 	var segment;
-	for (i = 0; i < prize.length; i++){
-		if (prize[i] == jackpot) {
+	for (i = 0; i < segmentNo; i++){
+		if (prize[i][1] == jackpot) {
 			segment = i;
 			break;
 		}
 	}
 	var angleToLand = (360/segmentNo)*(segmentNo-segment);
 	var range = Math.random() * (360/segmentNo) * 0.8
-	alert (range);
 	return angleToLand - range;
 
 }
@@ -409,10 +436,10 @@ var spinner = function(t, oa, na, iter, e, t2, final){
 				setTimeout(function(){
 					//Reset the pointer
 					$("#spin").removeClass("swingimagedown");
-					if (prize[final-1] == "Try Again"){
+					if (prize[final-1][0] == "Try Again"){
 						alert("Try Again! Click spin to play again!");
 					} else {
-						alert ('You landed with '+ prize[final-1] + '! Play again to win more!');
+						alert ('You landed with '+ prize[final-1][0] + '! Play again to win more!');
 					}
 					isSpinning = false;
 				}, 200);
@@ -444,12 +471,11 @@ $(document).ready(function(){
     			end=end+1;
    			}
    			*/
-   			var end = reward("$1000");
-   			alert(end);
+   			var end = reward("#ID20");
 
 			var final = segmentNo - Math.floor(end/(360/segmentNo));
 			//map function
-			var time = (360-end) * (1200) / (360) + 2500;
+			var time = (360-end) * (1600) / (360) + 2500;
 
 			//Give final result before wheel is spun
   		  	//alert ('you got '+ final); 
