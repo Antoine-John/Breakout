@@ -310,19 +310,23 @@ var ctx = canvas.getContext("2d");
 var lastend = Math.PI/2*3;
 var segmentNo = 20;//prompt("How many segments in this wheel?"); //Change just this to add more segments
 var prize = ["Try Again", "Try Again", "$5", "Try Again", "$10", "Try Again", "$10", "Try Again", "$5", "Try Again", "$5", "Try Again", "Try Again", "$5", "Try Again", "$5", "$1000", "Try Again", "Try Again", "Try Again"]; //- More segments, more prizes needed
+var color = ['blue', 'green', 'black', 'yellow', 'purple', 'red', 'orange'];
+var txtColor = ['white', 'white', 'white', 'black', 'white', 'white', 'white'];
 
 //Draw the spinning wheel:
 for (var i = 1; i < segmentNo+1; i++) {
-  	ctx.fillStyle = 'rgb(' + Math.floor(255/segmentNo*i) + ',' + Math.floor(255/segmentNo*(segmentNo-i)) + ',' + Math.floor(Math.random()*255) + ')';
+  	//ctx.fillStyle = 'rgb(' + Math.floor(255/segmentNo*i) + ',' + Math.floor(255/segmentNo*(segmentNo-i)) + ',' + Math.floor(Math.random()*255) + ')';
+  	ctx.fillStyle = color[i%7];
   	ctx.beginPath();
   	ctx.moveTo(canvas.width / 2, canvas.height / 2);
   	// Arc Parameters: x, y, radius, startingAngle (radians), endingAngle (radians), antiClockwise (boolean)
   	var x = canvas.width / 2;
   	var y = canvas.height / 2
   	var segmentAngle = Math.PI * 2 / segmentNo;
-  	ctx.arc(x, y, y, lastend, lastend + segmentAngle, false);
+  	ctx.arc(x, y, y*0.9, lastend, lastend + segmentAngle, false);
   	ctx.lineTo(canvas.width / 2, canvas.height / 2);
-  	ctx.lineWidth = 5;
+  	ctx.lineWidth = 40;
+  	ctx.strokeStyle = "white";
   	ctx.stroke();
   	ctx.fill();
   	lastend += Math.PI * 2 / segmentNo;
@@ -332,7 +336,7 @@ for (var i = 1; i < segmentNo+1; i++) {
 	var rotateBy = lastend - (Math.PI/segmentNo);
 	ctx.rotate(rotateBy);
 	ctx.font = "100px calibri";
-	ctx.fillStyle = 'white'; // green
+	ctx.fillStyle = txtColor[i%7];
 	ctx.textAlign = "start";
 	ctx.fillText( "                                        " + prize[i-1], 0, 0);
 	ctx.restore();
