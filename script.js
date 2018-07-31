@@ -330,7 +330,7 @@ var prize = [
 	["Try Again", "#ID18"],
 	["Try Again", "#ID19"],
 	["$1000", "#ID20"]
-	]; //- More segments, more prizes needed
+	]; //- More segments, more prizes needed. Each Prize given certain ID, to force prize, give the associated ID
 var color = [
 	['blue', 'white'],
 	['green', 'white'],
@@ -339,12 +339,12 @@ var color = [
 	['purple', 'white'],
 	['red', 'white'],
 	['orange', 'white']
-];
+]; //Color of segment and associated text color
 
 //Draw the spinning wheel:
 for (var i = 1; i < segmentNo+1; i++) {
   	//ctx.fillStyle = 'rgb(' + Math.floor(255/segmentNo*i) + ',' + Math.floor(255/segmentNo*(segmentNo-i)) + ',' + Math.floor(Math.random()*255) + ')';
-  	ctx.fillStyle = color[i%7][0];
+  	ctx.fillStyle = color[i%7][0]; //Mod 7 as there are 7 different colors available
   	ctx.beginPath();
   	ctx.moveTo(canvas.width / 2, canvas.height / 2);
   	// Arc Parameters: x, y, radius, startingAngle (radians), endingAngle (radians), antiClockwise (boolean)
@@ -471,11 +471,11 @@ $(document).ready(function(){
     			end=end+1;
    			}
    			*/
-   			var end = reward("#ID20");
+   			var end = reward("#ID1");
 
 			var final = segmentNo - Math.floor(end/(360/segmentNo));
 			//map function
-			var time = (360-end) * (1600) / (360) + 2500;
+			var time = (end) * (2000) / (360) + 500;
 
 			//Give final result before wheel is spun
   		  	//alert ('you got '+ final); 
