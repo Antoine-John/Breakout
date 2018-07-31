@@ -334,11 +334,12 @@ for (var i = 1; i < segmentNo+1; i++) {
   	ctx.save();
 	ctx.translate( canvas.width / 2, canvas.height / 2 );
 	var rotateBy = lastend - (Math.PI/segmentNo);
-	ctx.rotate(rotateBy);
-	ctx.font = "100px calibri";
+	var offset = 0.045;
+	ctx.rotate(rotateBy + offset);
+	ctx.font = "60px PressStart2P";
 	ctx.fillStyle = txtColor[i%7];
 	ctx.textAlign = "start";
-	ctx.fillText( "                                        " + prize[i-1], 0, 0);
+	ctx.fillText("												" + prize[i-1], 0, 0);
 	ctx.restore();
 }
 
