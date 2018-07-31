@@ -358,6 +358,22 @@ $.fn.SmoothRotate = function(oldAngle, angle, duration, easing, complete) {
   });
 };
 
+//From the prize type, calculate the angle required for it to stop
+var reward = function(jackpot){
+	var segment;
+	for (i = 0; i < prize.length; i++){
+		if (prize[i] == jackpot) {
+			segment = i;
+			break;
+		}
+	}
+	var angleToLand = (360/segmentNo)*(segmentNo-segment);
+	var range = Math.random() * (360/segmentNo) * 0.8
+	alert (range);
+	return angleToLand - range;
+
+}
+
 var isSpinning = false;
 var timeIncrement = 50;
 var angleIncrement = 120;
@@ -393,7 +409,11 @@ var spinner = function(t, oa, na, iter, e, t2, final){
 				setTimeout(function(){
 					//Reset the pointer
 					$("#spin").removeClass("swingimagedown");
-					alert ('You landed with '+ prize[final-1] + '! Play again to win more!');
+					if (prize[final-1] == "Try Again"){
+						alert("Try Again! Click spin to play again!");
+					} else {
+						alert ('You landed with '+ prize[final-1] + '! Play again to win more!');
+					}
 					isSpinning = false;
 				}, 200);
 			}, t2);										 
@@ -417,11 +437,15 @@ $(document).ready(function(){
 			//Setup variables
 			var obj = $('#test');
 
-			//In final version can pull information from file to check if token is winning case, and then force outcome
+			//In final version can pull information from file to check if token is winning case, and then force outcome\
+			/*
 			var end = Math.random() * 360;
 			if (end%(Math.PI*2/segmentNo) == 0){
     			end=end+1;
    			}
+   			*/
+   			var end = reward("$1000");
+   			alert(end);
 
 			var final = segmentNo - Math.floor(end/(360/segmentNo));
 			//map function
