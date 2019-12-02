@@ -1,43 +1,17 @@
-<!--
-Spin and win game, not truly random, wins are based upon tokens. 
-Tokens earned by costumers who use the Best Petrol card 
-Tokens generated at the end of the month - More of a lucky draw.
-Original version had a gif of a spinning wheel, is it possible to create a spin and win wheel that actually spins and is not a preset animation?
-How to go about the spinning wheel:
-	1. Make an image of a spin and win wheel and have that rotated by js
-	2. Draw a wheel using js/html/css and have it spun using css/js
-
-Went for option 1, used an animated loop for the pointer. Still need to work on the slowing down animation, still looks sketchy
--->
 <!DOCTYPE html>
 <html>
-	<head>
-		<link rel="stylesheet" type="text/css" href="./style.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script type="text/javascript" src="./jquery.easing.1.3.js"></script>
-		<title>Spin and Win</title>
-	</head>
-	<body>
+<head>
+	<meta charset="utf-8">
+	<title>Test game</title>
+	<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+	<div id="canvas_container">
+		<canvas style="border: 2px solid black;" id="canvas" width="480" height="320"></canvas>
+	</div>
 
-		<!--Spin and win machine here-
-		<div id="container" style="width:700px; height:800px; margin: auto">
-			<div style="width: 100%;">
-				<img id="test" style="height:500px; width:500px; padding-top: 40px; padding-bottom: 40px; z-index: 1" src="./wheel.png">
-				<img id="spin" style="height:50px; width:50px; margin-top: -590px; z-index: 2" src="./spin_point.png">
-			</div>
-		-->
-		<div id="container" style="width:900px; height:900px; margin: auto">
-			<div style="width: 100%;">
-				<canvas style="height:380px; width:380px; padding-top: 40px; padding-bottom: 40px; z-index: 1; top: 190px; right: 7px;"id="test" width="3000" height="3000">Your browser does not support the canvas element. Please open this page on Chrome, Firefox, Safari or a newer version of Internet Explorer.</canvas>
-				<img id="spin" style="height:50px; width:50px; margin-top: -260px; z-index: 2; right: 6px;" src="./spin_point.png">
-			</div>
-
-			<div class="btn_holder">
-		 		<button class="btn">SPIN!</button>
-			</div>
-		</div>
-
-	</body>
-	<script type="text/javascript" src="./ScriptTest.js"></script>
-	<script type="text/javascript" src="./script.js"></script>
+	<script src="Brick.js"></script>
+	<script src="Ball.js"></script>
+	<script src="script.js"></script>
+</body>
 </html>

@@ -6,127 +6,17 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-body{
-	background-image: url("./background.jpg");
-	background-repeat: no-repeat;
-	background-size: cover;
+* {
+	padding: 0;
+	margin: 0;
 }
 
-.btn_holder {
-	margin:auto;
-	width:100%;
-	height: 100px;
-	bottom:10px;
+#canvas_container {
+   width: 100%;
+   text-align:center;
 }
 
-#container {
-	background-image: url("./ArcadeConsole.gif");
-	background-repeat: no-repeat;
-	background-size: auto 100%;
-	background-position: center;
-}
-
-.btn {
-	padding: 40px 55px;
-	font-size: 32px;
-	text-align: center;
-	cursor: pointer;
-	outline: none;
-	color: white;
- 	background-color: #F44336;
- 	border: none;
- 	border-radius: 35px;
- 	box-shadow: 0 15px #800000;
- 	display:block;
- 	margin-left: auto;
-	margin-right: auto;
-	margin-top: 360px;
-	font-family: 'PressStart2P', cursive;
-	transform: rotateX(20deg);
-}
-
-.btn:hover {
-	background-color: #D32F2F;
-}
-
-.btn:active {
- 	background-color: #D32F2F;
- 	box-shadow: 0 8px #800000;
- 	transform: translateY(4px);
-}
-
-.wheel_holder{
-	margin: auto;
-	width: 600px;
-}
-
-img{
-	position:relative;
-	margin-bottom:30px;
-	display: block;
-	margin-right: auto; 
-	margin-left: auto;
-}
-
-canvas{
-	position:relative;
-	margin-bottom:30px;
-	display: block;
-	margin-right: auto; 
-	margin-left: auto;
-}
-
-@keyframes swingup{
-	0%{-webkit-transform: rotate(0deg)}
-	100%{-webkit-transform: rotate(-80deg);}
-}
-
-@keyframes swinging{
-	0%{-webkit-transform: rotate(-70deg)}
-	33%{-webkit-transform: rotate(-80deg);}
-	66%{-webkit-transform: rotate(-70deg);}
-	100%{-webkit-transform: rotate(-80deg)}
-}
-
-@keyframes lowswinging{
-	0%{-webkit-transform: rotate(-50deg)}
-	50%{-webkit-transform: rotate(-20deg);}
-	100%{-webkit-transform: rotate(-50deg);}
-}
-
-@keyframes swingdown{
-	0%{-webkit-transform: rotate(-20deg)}
-	35%{-webkit-transform: rotate(0deg)}
-	65%{-webkit-transform: rotate(30deg)}
-	80%{-webkit-transform: rotate(-20deg)}
-	90%{-webkit-transform: rotate(10deg)}
-	100%{-webkit-transform: rotate(0deg)}
-}
-
-.swingimageup{
-	-webkit-transform-origin: 50% 35%;
-	transform-origin: 50% 35%;
-	-webkit-animation: swingup 6s ease-in-out forwards 1;
-	animation: swingup 0.2s linear forwards 1;
-}
-
-.swingimagedown{
-	-webkit-transform-origin: 50% 35%;
-	transform-origin: 50% 35%;
-	-webkit-animation: swingdown 6s ease-in-out forwards 1;
-	animation: swingdown 0.2s linear forwards 1;
-}
-
-.swingimage{
-	-webkit-transform-origin: 50% 35%;
-	transform-origin: 50% 35%;
-	-webkit-animation: swinging 6s ease-in-out forwards 1;
-	animation: swinging 0.2s linear forwards 200;
-}
-
-.lowswingimage{
-	-webkit-transform-origin: 50% 35%;
-	transform-origin: 50% 35%;
-	-webkit-animation: lowswinging 6s ease-in-out forwards 1;
-	animation: lowswinging 0.5s linear forwards 200;
+canvas {
+   display: inline;
+   background: black;
 }
